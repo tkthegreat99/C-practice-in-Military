@@ -1,0 +1,80 @@
+
+#include <stdio.h>
+#include<stdlib.h>
+
+int main()
+{
+    int N, K;
+    scanf("%d %d", &N, &K);
+    int num;
+    int tmp=0;
+    int sum = 0;
+    int *arr = (int*)malloc(sizeof(int)*N);
+    int flag = 0;
+    
+    for(int i = 0 ; i< N ; i++){
+        scanf("%d", &num);
+        arr[i] = num; 
+    }
+    //배열 생성.
+    
+    
+    
+    for(int i = 0; i < N ; i++){
+        if(K == 0){
+            break;
+        }
+        
+        for(int j = 0; j < N; j++){
+            if(K <= arr[i]){
+                flag = 1;
+            }
+        }
+        
+        if(flag == 0){
+            tmp = K/arr[N-1];
+            sum+= tmp;
+            K -= tmp*arr[N-1];
+        }
+        
+        
+        if(arr[i] >= K){
+            if(i ==0){
+                tmp = K/arr[i];
+                sum+=tmp;
+                K-=tmp*arr[i];
+                i = 0;
+                continue;
+            }
+            
+            tmp  = K / arr[i-1];
+            sum += tmp;
+            K -= tmp * arr[i-1];
+            i = 0;
+        }
+    }
+    printf("%d", sum);
+    
+    free(arr);
+}
+
+난 이걸 이렇게 풀었는데...
+사실 이렇게 복잡하게 할 필요가 없는 거였다.
+그냥 뒤에서부터 나눠서 가면 되는거고
+k는 % 를 이용 나머지 연산으로 갱신해가면 되는거다.
+
+
+
+
+
+#include<stdio.h>
+int main() {
+	int i, n, m = 0, k, a[11]; 
+  scanf("%d%d", &n, &k);
+	for (i = 1; i <= n; i++) scanf("%d", &a[i]);
+	for (i = n; i > 0; i--) {
+		m += k / a[i];
+		k %= a[i];
+	}
+	printf("%d", m);
+}
